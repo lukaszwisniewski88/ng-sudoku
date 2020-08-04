@@ -1,0 +1,19 @@
+@tailwind base;
+@tailwind components;
+.field {
+    @apply border;
+    @apply border-gray-300;
+    @apply text-3xl;
+    @apply mx-auto;
+    line-height: 1.8rem;
+    height: 36px;
+    width: 100%;
+  }
+  .field:hover {
+    @apply bg-blue-200;
+  }
+  .field:active {
+    @apply bg-blue-300;
+    @apply text-gray-600;
+  }
+@tailwind utilities;
