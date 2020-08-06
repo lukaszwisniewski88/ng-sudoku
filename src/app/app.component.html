@@ -9,118 +9,21 @@
     <div class="px-2 py-4 flex flex-row justify-between text-xs text-gray-500
       w-full">
       <span>{{difficulty}}</span>
-      <span>{{secondsPassed | timePipe}}</span>
+      <span>{{secondsPassed$ | async | timePipe}}</span>
     </div>
     <div class=" mx-4 border-1 border-black border text-center">
       <div class="grid grid-cols-3">
-        <div class="grid grid-cols-3 border-black border even:bg-gray-200">
-          <div class="field">1</div>
-          <div class="field">
-            1
-          </div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-        </div>
-        <div class="grid grid-cols-3 border-black border">
-          <div class="field">0</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-        </div>
-        <div class="grid grid-cols-3 border-black border">
-          <div class="field">0</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-        </div>
-        <div class="grid grid-cols-3 border-black border">
-          <div class="field">0</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-        </div>
-        <div class="grid grid-cols-3 border-black border">
-          <div class="field">0</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-        </div>
-        <div class="grid grid-cols-3 border-black border">
-          <div class="field">0</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-        </div>
-        <div class="grid grid-cols-3 border-black border">
-          <div class="field">0</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-        </div>
-        <div class="grid grid-cols-3 border-black border">
-          <div class="field">0</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-        </div>
-        <div class="grid grid-cols-3 border-black border">
-          <div class="field">0</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
-          <div class="field">1</div>
+        <div class="grid grid-cols-3 border-black border even:bg-gray-200" *ngFor="let _x of Arr;index as square">
+          <board-field *ngFor="let index of boardChunk(square)" index={{index}} x={{ind}} y={{multiplier}}>
+          </board-field>
         </div>
       </div>
     </div>
   </section>
-  <section id="keys">
+  <section id=" keys">
     <div class="flex flex-col mx-8 py-4">
 
-      <div class="w-12 h-12 p-2 border rounded-full shadow-md relative">
+      <div class="w-12 h-12 p-2 border rounded-full shadow-md relative" (click)="incrementCounter()">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
           <path d="M212.333 224.333H12c-6.627 0-12-5.373-12-12V12C0 5.373 5.373 0 12
             0h48c6.627 0 12 5.373 12 12v78.112C117.773 39.279 184.26 7.47

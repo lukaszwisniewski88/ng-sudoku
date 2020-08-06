@@ -1,0 +1,3 @@
+<div [ngClass]="{selected : (selected$ | async)}" class="field" (click)="toggleSelect()">
+    {{value$ | async}}
+</div>

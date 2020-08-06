@@ -5,9 +5,11 @@
     @apply border-gray-300;
     @apply text-3xl;
     @apply mx-auto;
+    @apply transition-all;
     line-height: 1.8rem;
     height: 36px;
     width: 100%;
+
   }
   .field:hover {
     @apply bg-blue-200;
@@ -15,5 +17,9 @@
   .field:active {
     @apply bg-blue-300;
     @apply text-gray-600;
+  }
+  .field.selected {
+    @apply animate-pulse;
+    @apply bg-blue-200;
   }
 @tailwind utilities;
