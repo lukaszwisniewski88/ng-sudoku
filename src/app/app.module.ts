@@ -7,6 +7,7 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { timerReducer } from './store/timer/reducer'
 import { boardReducer } from './store/board/reducer'
+import { actuallySelectedReducer } from './store/actuallySelected/reducer'
 import { LineEffect } from './store/line.effect'
 import { TimerEffect } from './store/timer.effect'
 
@@ -29,7 +30,8 @@ import { FieldComponent } from './field/field.component';
     BrowserModule,
     StoreModule.forRoot({
       time: timerReducer,
-      board: boardReducer
+      board: boardReducer,
+      actuallySelected: actuallySelectedReducer
     }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     EffectsModule.forRoot([LineEffect, TimerEffect])
