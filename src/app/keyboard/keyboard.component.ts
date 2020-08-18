@@ -12,6 +12,7 @@ import {
   withLatestFrom,
   tap,
   exhaustMap,
+  skipWhile,
 } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import { actuallySelected, fieldSelector } from '../field/store.selectors';
@@ -53,6 +54,7 @@ export class KeyboardComponent implements OnInit {
     );
     merge(this.buttonClick$, this.keyboard$)
       .pipe(
+        skipWhile((value) => value.key === '0'),
         withLatestFrom(this.selectedIndex$),
         map((values) => {
           return {

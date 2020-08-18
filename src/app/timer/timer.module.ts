@@ -7,6 +7,7 @@ import { TimerService } from './timer.service';
 import { TimerComponent } from './timer.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 @NgModule({
   declarations: [TimePipe, TimerComponent],
@@ -16,6 +17,7 @@ import { EffectsModule } from '@ngrx/effects';
       timer: timerReducer,
     }),
     EffectsModule.forFeature([TimerEffect]),
+    ReactiveComponentModule,
   ],
   providers: [TimerService],
   exports: [TimerComponent],

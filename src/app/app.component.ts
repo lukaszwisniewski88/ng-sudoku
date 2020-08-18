@@ -9,7 +9,12 @@ import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { SudokuWebService } from './sudoku-web.service';
 import { newGame } from './store/board/actions';
-import { loadingIndicator, fieldsToSolve } from './field/store.selectors';
+import {
+  loadingIndicator,
+  fieldsToSolve,
+  allFieldsSelector,
+} from './field/store.selectors';
+import { Field } from './store/board/field.interface';
 
 @Component({
   selector: 'app-root',
@@ -20,8 +25,8 @@ import { loadingIndicator, fieldsToSolve } from './field/store.selectors';
 export class AppComponent implements OnInit, OnDestroy {
   constructor(private store: Store, private webSudoku: SudokuWebService) {}
   boardLoading$: Observable<boolean>;
-  secondsPassed$: Observable<number>;
   fieldsToSolve$: Observable<number>;
+  fields$: Observable<Field[]>;
   Arr = [...Array(9).keys()];
   title = 'ng-sudoku';
   difficulty = 'Hard';
@@ -35,6 +40,7 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.fieldsToSolve$ = this.store.select(fieldsToSolve);
     this.boardLoading$ = this.store.select(loadingIndicator);
+    this.fields$ = this.store.select(allFieldsSelector);
     this.store.dispatch(newGame());
   }
   ngOnDestroy() {

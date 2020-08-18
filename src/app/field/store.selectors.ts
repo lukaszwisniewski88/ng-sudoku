@@ -1,19 +1,26 @@
 import { createFeatureSelector, createSelector, select } from '@ngrx/store';
 import { FieldState } from '../store/board/field.interface';
 import { indexTosquare } from '../common/utils';
-
+import {
+  selectAll,
+  selectEntities,
+  selectIds,
+  selectTotal,
+} from '../store/board/reducer';
 const boardSelector = createFeatureSelector<FieldState>('board');
 
-export const entitiesSelector = createSelector(
-  boardSelector,
-  (board) => board.entities
+export const entitiesSelector = createSelector(boardSelector, (board) =>
+  selectEntities(board)
 );
 export const fieldSelector = createSelector(
   boardSelector,
   (board: FieldState, props: { index: number }) => {
-    console.log('called highlight');
-    return board.entities[props.index];
+    let field = selectAll(board);
+    return field[props.index];
   }
+);
+export const allFieldsSelector = createSelector(boardSelector, (board) =>
+  selectAll(board)
 );
 export const actuallySelected = createSelector(boardSelector, (board) => {
   return board.actuallySelected;

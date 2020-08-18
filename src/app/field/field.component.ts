@@ -3,6 +3,7 @@ import {
   OnInit,
   Input,
   ChangeDetectionStrategy,
+  AfterViewChecked,
 } from '@angular/core';
 import { Observable } from 'rxjs';
 import { fieldSelect } from '../store/board/actions';
@@ -24,12 +25,11 @@ import { distinctUntilChanged } from 'rxjs/operators';
 export class FieldComponent implements OnInit {
   constructor(private store: Store) {}
   @Input() index: number;
+  @Input() fieldData: Field;
   highlightSquare$: Observable<boolean>;
   highlightLine$: Observable<boolean>;
-  field$: Observable<Field>;
 
   ngOnInit(): void {
-    this.field$ = this.store.select(fieldSelector, { index: this.index });
     this.highlightSquare$ = this.store.select(highlightSquare, {
       index: this.index,
     });

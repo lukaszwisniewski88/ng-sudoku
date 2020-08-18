@@ -5,11 +5,11 @@
   <section id="appBar">
     <div class="bg-gray-200 w-full p-2 text-xl leading-relaxed sm:rounded">
       <span>New Game</span>
-      <span *ngIf="boardLoading$ | async"></span>
+      <span *ngIf="boardLoading$ | ngrxPush"></span>
     </div>
   </section>
   <!-- NOTIFICATION PANE ////////////////////////////-->
-  <section id="board" *ngIf="!(boardLoading$ | async); else spinner">
+  <section id="board" *ngIf="!(boardLoading$ | ngrxPush); else spinner">
     <div
       class="px-6 py-4 flex flex-row justify-between text-xs text-gray-500 w-full"
     >
@@ -22,23 +22,26 @@
     </div>
 
     <!-- BOARD CONTAINER ////////////////////////////-->
-    <div class="mx-4 border-1 border-black border text-center">
-      <div class="grid grid-cols-3">
-        <div
-          class="grid grid-cols-3 border-black border even:bg-gray-200"
-          *ngFor="let _x of Arr; index as square"
-        >
-          <board-field
-            *ngFor="let index of boardChunk(square)"
-            index="{{ index }}"
+    <ng-container *ngrxLet="fields$; let field">
+      <div class="mx-4 border-1 border-black border text-center">
+        <div class="grid grid-cols-3">
+          <div
+            class="grid grid-cols-3 border-black border even:bg-gray-200"
+            *ngFor="let _x of Arr; index as square"
           >
-          </board-field>
+            <board-field
+              *ngFor="let index of boardChunk(square)"
+              index="{{ index }}"
+              [fieldData]="field[index]"
+            >
+            </board-field>
+          </div>
         </div>
       </div>
-    </div>
+    </ng-container>
   </section>
   <!-- ACTION BUTTONS -->
-  <section id="icons" *ngIf="!(boardLoading$ | async)">
+  <section id="icons" *ngIf="!(boardLoading$ | ngrxPush)">
     <div class="flex flex-col mx-8 py-4">
       <div class="w-12 h-12 p-2 border rounded-full shadow-md relative">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">

@@ -15,7 +15,8 @@ export class TimerComponent implements OnInit {
   secondsPassed$: Observable<number>;
   ngOnInit(): void {
     this.secondsPassed$ = this.store.select(value);
-    //this.service.initialize();
+    this.service.initialize();
+    //
   }
   pauseTimer() {
     this.service.pause();
