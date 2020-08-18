@@ -1,3 +1,14 @@
-<div [ngClass]="{selected : (selected$ | async)}" class="field" (click)="toggleSelect()">
-    {{value$ | async}}
+<div
+  [ngClass]="{
+    selected: (field$ | async).selected,
+    invalid: !(field$ | async).valid,
+    conflicted: (field$ | async).conflicted,
+    extValue: (field$ | async).fixed,
+    line: highlightLine$ | ngrxPush,
+    square: highlightSquare$ | ngrxPush
+  }"
+  class="field"
+  (click)="toggleSelect($event)"
+>
+  {{ (field$ | async).value }}
 </div>

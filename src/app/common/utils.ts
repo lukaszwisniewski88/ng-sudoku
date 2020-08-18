@@ -9,3 +9,9 @@ export const indexToCoords = (index: number): Coordinates => {
         y: Math.floor((index % 9) / 3) + Math.floor(indexTosquare(index) / 3) * 3,
     };
 };
+export const indextoColumn = (index: number): number => {
+    return indexToCoords(index).x
+}
+export const indextoRow = (index: number): number => {
+    return indexToCoords(index).y
+}

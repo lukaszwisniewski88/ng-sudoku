@@ -1,38 +1,50 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Observable } from 'rxjs'
-import { select } from '../store/board/actions'
+import {
+  Component,
+  OnInit,
+  Input,
+  ChangeDetectionStrategy,
+} from '@angular/core';
+import { Observable } from 'rxjs';
+import { fieldSelect } from '../store/board/actions';
 import { Store } from '@ngrx/store';
-import { Field, FieldState } from '../store/board/field.interface';
+import { Field } from '../store/board/field.interface';
+import {
+  fieldSelector,
+  highlightSquare,
+  highlightLine,
+} from './store.selectors';
+import { distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'board-field',
   templateUrl: './field.component.html',
-  styleUrls: ['./field.component.css']
+  styleUrls: ['./field.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class FieldComponent implements OnInit {
-
-  constructor(
-
-    private store: Store<{ board: FieldState }>
-  ) {
-    this.value$ = store.
-      select(state => {
-        return state.board.entities[this.index].value
-      })
-    this.selected$ = store
-      .select(state => state.board.entities[this.index].selected)
-  }
-  selected$: Observable<boolean>
-  value$: Observable<number | null> = null
-  @Input() index: number
-  @Input() x: number
-  @Input() y: number
+  constructor(private store: Store) {}
+  @Input() index: number;
+  highlightSquare$: Observable<boolean>;
+  highlightLine$: Observable<boolean>;
+  field$: Observable<Field>;
 
   ngOnInit(): void {
+    this.field$ = this.store.select(fieldSelector, { index: this.index });
+    this.highlightSquare$ = this.store.select(highlightSquare, {
+      index: this.index,
+    });
+    this.highlightLine$ = this.store.select(highlightLine, {
+      index: this.index,
+    });
   }
-
-  toggleSelect() {
-    this.store.dispatch(select({ index: this.index }))
+  toggleSelect(event: MouseEvent) {
+    let evtTarget = event.target as HTMLElement;
+    if (
+      !evtTarget.classList.contains('extValue') &&
+      !evtTarget.classList.contains('invalid') &&
+      !evtTarget.classList.contains('conflicted')
+    ) {
+      this.store.dispatch(fieldSelect({ index: this.index }));
+    }
   }
-
 }

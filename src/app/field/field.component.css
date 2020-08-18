@@ -1,0 +1,25 @@
+.field.conflicted,
+.field.invalid {
+  animation: blinkText 250ms infinite;
+}
+.field.extValue {
+  color: gray;
+  cursor: not-allowed;
+}
+.field.line {
+  background-color: aquamarine;
+}
+.field.square {
+  background-color: chartreuse;
+}
+@keyframes blinkText {
+  0% {
+    color: red;
+  }
+  50% {
+    color: transparent;
+  }
+  100% {
+    color: red;
+  }
+}

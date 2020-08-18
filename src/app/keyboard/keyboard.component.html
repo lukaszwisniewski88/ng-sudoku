@@ -1,0 +1,7 @@
+<section id="keyboard" class="w-full mb-16">
+    <div class="flex justify-between mx-6">
+        <button (click)="clickHandler($event)" *ngFor="let number of keys;trackBy: trackById" type=" button"
+            class="active:text-blue-800"><span
+                class="text-5xl text-blue-500 font-normal cursor-pointer">{{number+1}}</span></button>
+    </div>
+</section>

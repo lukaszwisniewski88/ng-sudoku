@@ -1,31 +1,49 @@
-<main class="grid grid-cols-1 mx-auto max-w-sm sm:border-gray-100 sm:rounded
-  sm:shadow-xl md:my-10">
+<main
+  class="grid grid-cols-1 h-screen mx-auto max-w-sm sm:border-gray-100 sm:rounded sm:shadow-xl md:my-10"
+>
+  <!--APP BAR-->
   <section id="appBar">
     <div class="bg-gray-200 w-full p-2 text-xl leading-relaxed sm:rounded">
       <span>New Game</span>
+      <span *ngIf="boardLoading$ | async"></span>
     </div>
   </section>
-  <section id="board">
-    <div class="px-2 py-4 flex flex-row justify-between text-xs text-gray-500
-      w-full">
-      <span>{{difficulty}}</span>
-      <span>{{secondsPassed$ | async | timePipe}}</span>
+  <!-- NOTIFICATION PANE ////////////////////////////-->
+  <section id="board" *ngIf="!(boardLoading$ | async); else spinner">
+    <div
+      class="px-6 py-4 flex flex-row justify-between text-xs text-gray-500 w-full"
+    >
+      <div class="inline-flex justify-between w-1/2">
+        <span>Mistakes : 0</span>
+        <span>Solved {{ fieldsToSolve$ | ngrxPush }}/81</span>
+        <span>{{ difficulty }}</span>
+      </div>
+      <app-timer></app-timer>
     </div>
-    <div class=" mx-4 border-1 border-black border text-center">
+
+    <!-- BOARD CONTAINER ////////////////////////////-->
+    <div class="mx-4 border-1 border-black border text-center">
       <div class="grid grid-cols-3">
-        <div class="grid grid-cols-3 border-black border even:bg-gray-200" *ngFor="let _x of Arr;index as square">
-          <board-field *ngFor="let index of boardChunk(square)" index={{index}} x={{ind}} y={{multiplier}}>
+        <div
+          class="grid grid-cols-3 border-black border even:bg-gray-200"
+          *ngFor="let _x of Arr; index as square"
+        >
+          <board-field
+            *ngFor="let index of boardChunk(square)"
+            index="{{ index }}"
+          >
           </board-field>
         </div>
       </div>
     </div>
   </section>
-  <section id=" keys">
+  <!-- ACTION BUTTONS -->
+  <section id="icons" *ngIf="!(boardLoading$ | async)">
     <div class="flex flex-col mx-8 py-4">
-
-      <div class="w-12 h-12 p-2 border rounded-full shadow-md relative" (click)="incrementCounter()">
+      <div class="w-12 h-12 p-2 border rounded-full shadow-md relative">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-          <path d="M212.333 224.333H12c-6.627 0-12-5.373-12-12V12C0 5.373 5.373 0 12
+          <path
+            d="M212.333 224.333H12c-6.627 0-12-5.373-12-12V12C0 5.373 5.373 0 12
             0h48c6.627 0 12 5.373 12 12v78.112C117.773 39.279 184.26 7.47
             258.175 8.007c136.906.994 246.448 111.623 246.157 248.532C504.041
             393.258 393.12 504 256.333 504c-64.089
@@ -33,9 +51,33 @@
             11.662-4.717 16.401-.525C170.76 415.336 211.58 432 256.333
             432c97.268 0 176-78.716 176-176 0-97.267-78.716-176-176-176-58.496
             0-110.28 28.476-142.274 72.333h98.274c6.627 0 12 5.373 12 12v48c0
-            6.627-5.373 12-12 12z" />
+            6.627-5.373 12-12 12z"
+          />
         </svg>
       </div>
     </div>
   </section>
+  <!--INPUT KEYBOARD -->
+  <board-keyboard
+    [keys]="Arr"
+    *ngIf="!(boardLoading$ | ngrxPush)"
+  ></board-keyboard>
 </main>
+<ng-template #spinner>
+  <div class="h-full w-full flex">
+    <div class="mx-auto lds-spinner">
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  </div>
+</ng-template>

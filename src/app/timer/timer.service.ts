@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Subscription, interval } from 'rxjs'
 import { Store } from '@ngrx/store'
-import { timePassed, reset } from './store/timer/actions'
+import { timePassed, reset } from './store/actions'
 
 @Injectable({
   providedIn: 'root'

@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "sudoku-fire-66866": {
+      "hosting": {
+        "ng-sudoku": [
+          "sudoku-fire-66866"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "sudoku-fire-66866"
+  }
+}

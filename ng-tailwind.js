@@ -7,7 +7,7 @@ module.exports = {
   // Sass
   sass: false,
   // PurgeCSS Settings
-  purge: false,
+  purge: true,
   keyframes: false,
   fontFace: false,
   rejected: false,
@@ -20,5 +20,5 @@ module.exports = {
     '.js'
   ],
   extractors: [],
-  content: []
+  content: ['./src/**/*.html', './src/**/*.ts']
 }

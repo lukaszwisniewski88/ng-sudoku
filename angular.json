@@ -117,8 +117,16 @@
               "devServerTarget": "ng-sudoku:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
-    }},
-  "defaultProject": "ng-sudoku"
+    }
+  },
+  "defaultProject": "ng-sudoku",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }
